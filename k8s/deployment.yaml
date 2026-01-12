@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memos
+  namespace: memos
+  labels:
+    app: memos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memos
+  template:
+    metadata:
+      labels:
+        app: memos
+    spec:
+      containers:
+      - name: memos
+        image: neosmemo/memos:stable
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 5230
+          protocol: TCP
+        env:
+        # Core Configuration
+        - name: MEMOS_MODE
+          value: "prod"
+        - name: MEMOS_PORT
+          value: "5230"
+        - name: MEMOS_ADDR
+          value: "0.0.0.0"
+        - name: MEMOS_DATA
+          value: "/var/opt/memos"
+        # Database Configuration (SQLite by default)
+        # Uncomment and modify if using MySQL or PostgreSQL
+        # - name: MEMOS_DRIVER
+        #   value: "mysql"
+        # - name: MEMOS_DSN
+        #   value: "memos:$(DB_PASSWORD)@tcp(mysql-service:3306)/memos"
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: memos-db-secret
+        #       key: password
+        #       optional: true
+        # For PostgreSQL:
+        # - name: MEMOS_DRIVER
+        #   value: "postgres"
+        # - name: MEMOS_DSN
+        #   value: "postgres://memos:$(DB_PASSWORD)@postgres-service:5432/memos?sslmode=disable"
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: memos-db-secret
+        #       key: password
+        #       optional: true
+        
+        # Instance Configuration
+        - name: MEMOS_INSTANCE_URL
+          value: "https://memos.example.com"  # Change to your actual domain
+        
+        # AI/Ollama Configuration
+        - name: OLLAMA_BASE_URL
+          value: "http://ollama-service:11434"  # Change if Ollama is deployed elsewhere
+        - name: OLLAMA_MODEL
+          value: "llama3:8b"  # Change to your preferred model
+        
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        
+        volumeMounts:
+        - name: memos-data
+          mountPath: /var/opt/memos
+        - name: memos-config
+          mountPath: /var/opt/memos/config.json
+          subPath: config.json
+          readOnly: true
+        
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      
+      volumes:
+      - name: memos-data
+        persistentVolumeClaim:
+          claimName: memos-data
+      - name: memos-config
+        configMap:
+          name: memos-config

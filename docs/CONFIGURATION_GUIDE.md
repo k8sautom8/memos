@@ -71,7 +71,23 @@ The configuration file must be named `config.json` and placed in your Memos data
    docker-compose restart memos
    ```
 
-### Option 3: Kubernetes ConfigMap
+### Option 3: Kubernetes
+
+**Quick Deploy:**
+```bash
+# Deploy all resources at once
+kubectl apply -k k8s/
+
+# Or deploy individually (see k8s/README.md for details)
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+```
+
+**See [`k8s/README.md`](../../k8s/README.md) for complete Kubernetes deployment guide.**
+
+#### ConfigMap Configuration
 
 #### Method 1: Create ConfigMap from YAML file
 

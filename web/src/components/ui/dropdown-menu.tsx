@@ -59,13 +59,63 @@ function DropdownMenuItem({
   inset?: boolean;
   variant?: "default" | "destructive";
 }) {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  // Ensure destructive variant uses theme CSS variables correctly
+  useEffect(() => {
+    if (variant !== "destructive") return;
+
+    const item = itemRef.current;
+    if (!item) return;
+
+    const applyStyles = () => {
+      // Get CSS variables from computed styles
+      const computedStyle = getComputedStyle(document.documentElement);
+      const destructiveColor = computedStyle.getPropertyValue("--destructive").trim();
+
+      if (destructiveColor) {
+        const itemStyle = getComputedStyle(item);
+        const currentColor = itemStyle.color;
+
+        // Check if item needs styling (if it's white/transparent or same as background)
+        const needsStyling = 
+          !currentColor || 
+          currentColor === "rgba(0, 0, 0, 0)" || 
+          currentColor === "transparent" ||
+          (currentColor.includes("255") && currentColor.includes("255")); // White
+
+        if (needsStyling) {
+          // Use CSS variables via inline styles as fallback
+          item.style.setProperty("color", `var(--destructive)`, "important");
+          
+          // Force icon color to match
+          const svgs = item.querySelectorAll("svg");
+          svgs.forEach((svg) => {
+            svg.style.setProperty("color", `var(--destructive)`, "important");
+          });
+        }
+      }
+    };
+
+    // Apply styles after render
+    const timeoutId = setTimeout(applyStyles, 10);
+    const timeoutId2 = setTimeout(applyStyles, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(timeoutId2);
+    };
+  }, [variant]);
+
   return (
     <DropdownMenuPrimitive.Item
+      ref={itemRef}
       data-slot="dropdown-menu-item"
       data-inset={inset}
       data-variant={variant}
       className={cn(
         "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        variant === "destructive" && "!text-[var(--destructive)] [&_svg]:!text-[var(--destructive)]",
         className,
       )}
       {...props}

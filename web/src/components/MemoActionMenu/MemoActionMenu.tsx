@@ -124,7 +124,7 @@ const MemoActionMenu = (props: MemoActionMenuProps) => {
             )}
 
             {/* Delete */}
-            <DropdownMenuItem onClick={handleDeleteMemoClick}>
+            <DropdownMenuItem onClick={handleDeleteMemoClick} variant="destructive">
               <TrashIcon className="w-4 h-auto" />
               {t("common.delete")}
             </DropdownMenuItem>

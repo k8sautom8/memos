@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: memos
+  namespace: memos
+  labels:
+    app: memos
+  annotations:
+    # For nginx-ingress
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    # For cert-manager (uncomment if using cert-manager)
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx  # Change to your ingress class
+  tls:
+  - hosts:
+    - memos.example.com  # Change to your domain
+    secretName: memos-tls
+  rules:
+  - host: memos.example.com  # Change to your domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: memos
+            port:
+              number: 80
+
+---
+# Alternative: Ingress without TLS (for development)
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: memos
+#   namespace: memos
+#   labels:
+#     app: memos
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: memos.local  # Change to your domain
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: memos
+#             port:
+#               number: 80

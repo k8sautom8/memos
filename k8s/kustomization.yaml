@@ -1,0 +1,30 @@
+# Kustomization file for easy deployment
+# Usage: kubectl apply -k k8s/
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: memos
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - secret.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+# Uncomment to customize image
+# images:
+#   - name: neosmemo/memos
+#     newTag: latest
+
+# Uncomment to add common labels
+# commonLabels:
+#   environment: production
+#   managed-by: kustomize
+
+# Uncomment to add common annotations
+# commonAnnotations:
+#   description: "Memos deployment"

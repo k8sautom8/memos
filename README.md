@@ -1,32 +1,11 @@
 # Memos
 
-<img align="right" height="96px" src="https://raw.githubusercontent.com/usememos/.github/refs/heads/main/assets/logo-rounded.png" alt="Memos" />
-
 An open-source, self-hosted note-taking service. Your thoughts, your data, your control — no tracking, no ads, no subscription fees.
 
-[![Home](https://img.shields.io/badge/🏠-usememos.com-blue?style=flat-square)](https://usememos.com)
-[![Live Demo](https://img.shields.io/badge/✨-Try%20Demo-orange?style=flat-square)](https://demo.usememos.com/)
-[![Docs](https://img.shields.io/badge/📚-Documentation-green?style=flat-square)](https://usememos.com/docs)
-[![Discord](https://img.shields.io/badge/💬-Discord-5865f2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/tfPJa4UmAv)
-[![Docker Pulls](https://img.shields.io/docker/pulls/neosmemo/memos?style=flat-square&logo=docker)](https://hub.docker.com/r/neosmemo/memos)
+Based on some awesome codebase https://github.com/usememos/memos
+To be honest all hard work was already done, I just sprinkled some seasonings on top!
 
-<img src="https://raw.githubusercontent.com/usememos/.github/refs/heads/main/assets/demo.png" alt="Memos Demo Screenshot" height="512" />
-
-### 💎 Featured Sponsors
-
-[**Warp** — The AI-powered terminal built for speed and collaboration](https://go.warp.dev/memos)
-
-<a href="https://go.warp.dev/memos" target="_blank" rel="noopener">
-  <img src="https://raw.githubusercontent.com/warpdotdev/brand-assets/main/Github/Sponsor/Warp-Github-LG-02.png" alt="Warp - The AI-powered terminal built for speed and collaboration" width="512" />
-</a>
-
----
-
-[**LambdaTest** - Cross-browser testing cloud](https://www.lambdatest.com/?utm_source=memos&utm_medium=sponsor)
-  
-<a href="https://www.lambdatest.com/?utm_source=memos&utm_medium=sponsor" target="_blank" rel="noopener">
-  <img src="https://www.lambdatest.com/blue-logo.png" alt="LambdaTest - Cross-browser testing cloud" height="50" />
-</a>
+<img src=".github/refs/demo.png" alt="Memos Demo Screenshot" height="512" />
 
 ## Overview
 
@@ -139,51 +118,34 @@ Open `http://localhost:5230` and start writing!
 - **[Configuration Guide](docs/CONFIGURATION_GUIDE.md)** - How to configure templates, AI prompts, and environment variables
 - **[Configuration Reference](docs/CONFIGURATION.md)** - Detailed configuration options and API endpoints
 
-### Try the Live Demo
-
-Don't want to install yet? Try our [live demo](https://demo.usememos.com/) first!
-
 ### Other Installation Methods
 
 - **Docker Compose** - Recommended for production deployments
+- **Kubernetes** - Complete manifests available in [`k8s/`](k8s/) directory
 - **Pre-built Binaries** - Available for Linux, macOS, and Windows
-- **Kubernetes** - Helm charts and manifests available
 - **Build from Source** - For development and customization
 
-See our [installation guide](https://usememos.com/docs/installation) for detailed instructions.
+**Kubernetes Deployment:**
+```bash
+# Quick deploy with kustomize
+kubectl apply -k k8s/
+
+# Or deploy individually
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/pvc.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/ingress.yaml
+```
+
+See [`k8s/README.md`](k8s/README.md) for detailed Kubernetes deployment instructions.
 
 ## Contributing
 
 We welcome contributions of all kinds! Whether you're fixing bugs, adding features, improving documentation, or helping with translations — every contribution matters.
 
-**Ways to contribute:**
-
-- 🐛 [Report bugs](https://github.com/usememos/memos/issues/new?template=bug_report.md)
-- 💡 [Suggest features](https://github.com/usememos/memos/issues/new?template=feature_request.md)
-- 🔧 [Submit pull requests](https://github.com/usememos/memos/pulls)
-- 📖 [Improve documentation](https://github.com/usememos/memos/tree/main/docs)
-- 🌍 [Help with translations](https://github.com/usememos/memos/tree/main/web/src/locales)
-
-## Sponsors
-
-Love Memos? [Sponsor us on GitHub](https://github.com/sponsors/usememos) to help keep the project growing!
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=usememos/memos&type=Date)](https://star-history.com/#usememos/memos&Date)
-
 ## License
 
 Memos is open-source software licensed under the [MIT License](LICENSE).
 
-## Privacy Policy
-
-Memos is built with privacy as a core principle. As a self-hosted application, all your data stays on your infrastructure. There is no telemetry, no tracking, and no data collection. See our [Privacy Policy](https://usememos.com/privacy) for details.
-
----
-
-**[Website](https://usememos.com)** • **[Documentation](https://usememos.com/docs)** • **[Demo](https://demo.usememos.com/)** • **[Discord](https://discord.gg/tfPJa4UmAv)** • **[X/Twitter](https://x.com/usememos)**
-
-<a href="https://vercel.com/oss">
-  <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge.svg" />
-</a>
