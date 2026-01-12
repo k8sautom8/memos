@@ -19,7 +19,6 @@ interface CommentThreadProps {
 const CommentThread: React.FC<CommentThreadProps> = ({
   node,
   maxDepth = 10,
-  rootMemoName,
   onReply,
   parentPage,
 }) => {
@@ -102,11 +101,11 @@ const CommentThread: React.FC<CommentThreadProps> = ({
                 onClick={handleReply}
               >
                 <ReplyIcon className="w-3 h-3 mr-1" />
-                {t("memo.comment.reply") || "Reply"}
+                {t("common.reply") || "Reply"}
               </Button>
               {hasChildren && (
                 <span className="text-xs text-muted-foreground">
-                  {countTotalComments(children)} {countTotalComments(children) === 1 ? (t("memo.comment.reply") || "reply") : (t("memo.comment.replies") || "replies")}
+                  {countTotalComments(children)} {countTotalComments(children) === 1 ? (t("common.reply") || "reply") : (t("common.replies") || "replies")}
                 </span>
               )}
             </div>
@@ -134,7 +133,6 @@ const CommentThread: React.FC<CommentThreadProps> = ({
                   key={childNode.comment.name}
                   node={childNode}
                   maxDepth={maxDepth}
-                  rootMemoName={rootMemoName}
                   onReply={onReply}
                   parentPage={parentPage}
                 />
@@ -149,7 +147,7 @@ const CommentThread: React.FC<CommentThreadProps> = ({
               className="mt-1 ml-4 text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
             >
               <MessageCircleIcon className="w-3 h-3" />
-              {countTotalComments(children)} {countTotalComments(children) === 1 ? (t("memo.comment.reply") || "reply") : (t("memo.comment.replies") || "replies")}
+              {countTotalComments(children)} {countTotalComments(children) === 1 ? (t("common.reply") || "reply") : (t("common.replies") || "replies")}
             </button>
           )}
         </div>

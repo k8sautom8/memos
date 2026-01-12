@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import UserAvatar from "../UserAvatar";
 import MemoContent from "../MemoContent";
 import { Button } from "../ui/button";
-import { useTranslate } from "@/utils/i18n";
+import { useUser } from "@/hooks/useUserQueries";
 import type { Memo } from "@/types/proto/api/v1/memo_service_pb";
 
 interface CommentItemProps {
@@ -13,7 +13,6 @@ interface CommentItemProps {
   depth?: number;
   onReply?: () => void;
   showReplyButton?: boolean;
-  parentPage?: string;
 }
 
 const CommentItem: React.FC<CommentItemProps> = ({
@@ -21,10 +20,8 @@ const CommentItem: React.FC<CommentItemProps> = ({
   depth = 0,
   onReply,
   showReplyButton = true,
-  parentPage,
 }) => {
-  const t = useTranslate();
-  const creator = comment.creator;
+  const creator = useUser(comment.creator).data;
   // Calculate indentation - LinkedIn style: indent replies under their parent
   // Each level indents by avatar width (32px) + gap (12px) = 44px
   const indentPx = depth > 0 ? depth * 44 : 0;

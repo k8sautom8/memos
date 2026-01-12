@@ -112,6 +112,12 @@ Open `http://localhost:5230` and start writing!
 - `OLLAMA_BASE_URL` - Ollama API URL (default: `http://localhost:11434`)
 - `OLLAMA_MODEL` - Default Ollama model (default: `gpt-oss:120b`)
 
+### Try the Live Demo
+
+Don't want to install yet? Try out https://memos.ajlab.uk/ first!
+User: demo
+Password: demo
+
 ### Documentation
 
 - **[Features Guide](docs/FEATURES.md)** - Complete overview of all features including AI, text-to-speech, comments, and more

@@ -317,7 +317,7 @@ const InlineCommentEditorImpl: React.FC<InlineCommentEditorProps> = ({
                 }
               }}
             >
-              {isSaving ? (t("common.saving") || "Saving...") : isReply ? (t("memo.comment.reply") || "Reply") : "Comment"}
+              {isSaving ? (t("common.saving") || "Saving...") : isReply ? (t("common.reply") || "Reply") : "Comment"}
             </Button>
           </div>
         </div>

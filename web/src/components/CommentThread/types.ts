@@ -7,10 +7,9 @@ export interface CommentNode {
 }
 
 export interface CommentThreadProps {
-  comment: Memo;
-  depth?: number;
+  node: CommentNode;
   maxDepth?: number;
-  onReply?: (parentComment: Memo) => void;
+  onReply?: (parentComment: string) => void;
   parentPage?: string;
 }
 
