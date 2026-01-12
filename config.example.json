@@ -1,0 +1,47 @@
+{
+  "templates": [
+    {
+      "id": "daily-notes",
+      "name": "Daily Notes",
+      "description": "Template for daily journaling and notes",
+      "content": "# {{DATE}}\n\n## Morning\n- \n\n## Afternoon\n- \n\n## Evening\n- \n\n## Notes\n"
+    },
+    {
+      "id": "meeting-notes",
+      "name": "Meeting Notes",
+      "description": "Template for meeting notes and action items",
+      "content": "# Meeting: [Topic]\n\n**Date:** {{DATE}}\n**Time:** \n**Attendees:** \n\n## Agenda\n1. \n2. \n3. \n\n## Discussion\n- \n\n## Action Items\n- [ ] \n- [ ] \n- [ ] \n\n## Next Steps\n"
+    },
+    {
+      "id": "food-recipe",
+      "name": "Food Recipe",
+      "description": "Template for recipes and cooking notes",
+      "content": "# [Recipe Name]\n\n**Prep Time:** \n**Cook Time:** \n**Servings:** \n\n## Ingredients\n- \n- \n- \n\n## Instructions\n1. \n2. \n3. \n\n## Notes\n"
+    },
+    {
+      "id": "project-plan",
+      "name": "Project Plan",
+      "description": "Template for project planning and tracking",
+      "content": "# [Project Name]\n\n**Status:** \n**Start Date:** \n**Target Date:** \n\n## Overview\n \n\n## Goals\n- \n- \n- \n\n## Tasks\n- [ ] \n- [ ] \n- [ ] \n\n## Resources\n- \n\n## Notes\n"
+    },
+    {
+      "id": "book-notes",
+      "name": "Book Notes",
+      "description": "Template for book reading notes and summaries",
+      "content": "# [Book Title]\n\n**Author:** \n**Date Started:** \n**Date Finished:** \n**Rating:** ⭐⭐⭐⭐⭐\n\n## Summary\n \n\n## Key Takeaways\n- \n- \n- \n\n## Quotes\n> \n\n## Notes\n"
+    },
+    {
+      "id": "idea-brainstorm",
+      "name": "Idea Brainstorm",
+      "description": "Template for brainstorming and idea generation",
+      "content": "# [Topic/Idea]\n\n**Date:** {{DATE}}\n\n## Core Concept\n \n\n## Key Points\n- \n- \n- \n\n## Pros\n- \n- \n\n## Cons\n- \n- \n\n## Next Steps\n- [ ] \n- [ ] \n"
+    }
+  ],
+  "aiPrompts": {
+    "tagGenerationPrompt": "Analyze the following memo content and generate exactly 3 relevant tags. Tags should be:\n1. Short (1-3 words each)\n2. Descriptive and relevant to the content\n3. Lowercase with no special characters (use underscores for spaces if needed)\n4. Focused on the main topics/themes\n5. **CRITICALLY IMPORTANT**: Reuse existing tags when possible to minimize tag proliferation and maintain consistency\n\n{{EXISTING_TAGS}}\n\n**Instructions:**\n- FIRST check if any existing tags match the content - REUSE them if they fit\n- Only create NEW tags if no existing tags are appropriate\n- Prioritize existing tags over creating new ones\n- This helps keep the tag list manageable and searchable\n\nContent:\n{{CONTENT}}\n\nReturn only the 3 tags, one per line, without numbering, bullets, or prefixes:",
+    "assistantSuggestionsPrompt": "You are an AI writing assistant helping to enhance a note/memo. Analyze the context and provide 3 contextual suggestions to continue or enhance the writing at the current cursor position.\n\nFull Context:\n{{FULL_CONTEXT}}\n\nCurrent Position Context:\n{{CONTEXT_BEFORE}}[CURSOR]{{CONTEXT_AFTER}}\n\nCurrent line being typed: \"{{CURRENT_LINE}}\"\n\nProvide 3 suggestions that:\n1. Are contextually relevant to the existing content\n2. Enhance or continue the current thought/idea\n3. Are concise (one sentence each)\n4. Flow naturally from what's already written\n\nReturn only the suggestions, one per line, without numbering, bullets, or prefixes:",
+    "assistantRewritePrompt": "Rewrite the following note/memo completely. You have full flexibility to:\n- Restructure the content\n- Improve clarity and flow\n- Enhance the writing style\n- Reorganize ideas\n- Make it more engaging and professional\n\nOriginal content:\n{{CONTENT}}\n\nProvide a completely rewritten version that improves upon the original:",
+    "assistantEnhanceSlightPrompt": "Enhance the following note/memo with SLIGHT changes only. You must:\n- Keep ALL the original ideas and content\n- Make MINOR improvements to grammar, clarity, and flow\n- Fix typos and awkward phrasing\n- Do NOT add any new ideas, topics, or content\n- Do NOT expand on existing points\n- Only refine what's already there\n\nContent:\n{{CONTENT}}\n\nProvide the slightly enhanced version (same length, same ideas, just refined):",
+    "assistantEnhanceElaboratePrompt": "Enhance the following note/memo to make it MORE ELABORATE, but CRITICALLY: you must NOT add any new ideas, topics, or content beyond what the user has written. You can:\n- Expand on existing points with more detail\n- Add examples, explanations, or context for existing ideas\n- Improve structure and flow\n- Make it more comprehensive and detailed\n- Use better vocabulary and phrasing\n\nBUT you must NOT:\n- Introduce new topics or ideas\n- Add information not implied in the original content\n- Go beyond what the user has written\n\nContent:\n{{CONTENT}}\n\nProvide the more elaborate version (expanding only on existing content, no new ideas):"
+  }
+}

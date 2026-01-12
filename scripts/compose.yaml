@@ -1,0 +1,13 @@
+services:
+  memos:
+    image: neosmemo/memos:latest
+    container_name: memos
+    volumes:
+      - ~/.memos/:/var/opt/memos
+    ports:
+      - 5230:5230
+    environment:
+      - MEMOS_MODE=prod
+      - MEMOS_PORT=5230
+      - OLLAMA_BASE_URL=http://localhost:11434
+      - OLLAMA_MODEL=gpt-oss:120b

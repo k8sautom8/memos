@@ -1,0 +1,2 @@
+ALTER TABLE `memo` ADD COLUMN `parent_uid` VARCHAR(256) DEFAULT NULL;
+
